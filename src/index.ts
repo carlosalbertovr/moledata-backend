@@ -42,6 +42,7 @@ RegisterRoutes(app);
 
 // Healthcheck
 app.get("/", (_req: Request, res: Response) => {
+	console.log(`Healthchecked at ${new Date()}`)
 	res.json({ msg: "Welcome to Mole Data API 😎" });
 });
 
