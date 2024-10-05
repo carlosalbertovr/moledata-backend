@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"moduleResolution": "node",
+
 		/* Language and Environment */
 		"target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
 		"experimentalDecorators": true /* Enable experimental support for legacy experimental decorators. */,
@@ -13,6 +14,9 @@
 			"node_modules/@types",
 			"src/@types"
 		] /* Specify multiple folders that act like './node_modules/@types'. */,
+
+		/* Enable JSON imports */
+		"resolveJsonModule": true /* Allow importing JSON files */,
 
 		/* Emit */
 		"outDir": "./build" /* Specify an output folder for all emitted files. */,
@@ -33,6 +37,6 @@
 		"skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-	"include": ["src/**/*.ts"], // Include all TypeScript files in src directory
-	"exclude": ["node_modules", "dist"] // Exclude node_modules and dist directories
+	"include": ["src"] /* Include all TypeScript files in src directory */,
+	"exclude": ["node_modules", "dist"] /* Exclude node_modules and dist directories */
 }

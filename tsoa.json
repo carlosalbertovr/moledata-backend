@@ -1,0 +1,26 @@
+{
+	"entryFile": "src/index.ts",
+	"noImplicitAdditionalProperties": "silently-remove-extras",
+	"controllerPathGlobs": ["src/**/*-controller.ts"],
+	"spec": {
+		"outputDirectory": "tsoa",
+		"specVersion": 3
+	},
+	"routes": {
+		"routesDir": "tsoa",
+        "authenticationModule": "./src/auth/authentication.ts"
+	},
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"paths": {
+			"@controllers/*": ["api/controllers/*"],
+			"@services/*": ["api/services/*"],
+			"@apiModels/*": ["api/models/*"],
+			"@validations/*": ["api/validations/*"],
+			"@rootTypes/*": ["types/*"],
+			"@api/*": ["api/*"],
+			"@root/*": ["/*"],
+			"@root-config/*": ["config/*"]
+		}
+	}
+}
