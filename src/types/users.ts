@@ -5,6 +5,6 @@ import { User } from "@prisma/client";
  */
 type UserRecord = User;
 
-type UserOutput = UserRecord;
+type UserOutput = Omit<UserRecord, "is_deleted">;
 
 export { UserRecord, UserOutput };
