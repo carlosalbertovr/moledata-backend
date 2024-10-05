@@ -5,8 +5,8 @@ import prisma from "../../services/prisma";
 const select: Prisma.UserSelect = {
 	id: true,
 	email: true,
-	firstname: true,
-	lastname: true,
+	fullname: true,
+	country: true,
 };
 
 export const getUserById = async (userId: string) =>
