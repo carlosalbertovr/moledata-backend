@@ -4,11 +4,12 @@
 	"description": "Rest API with Nodejs and Prisma",
 	"main": "src/index.ts",
 	"scripts": {
-		"build": "tsc",
+		"build": "npx prisma generate && tsc",
 		"tsoa": "tsoa spec-and-routes",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "concurrently \"npx nodemon\" \"npx nodemon -x tsoa spec-and-routes\"",
-		"migrate": "npx prisma migrate dev"
+		"migrate": "npx prisma migrate dev",
+		"postinstall": "npx prisma generate"
 	},
 	"keywords": [],
 	"author": "Carlos Velázquez",
