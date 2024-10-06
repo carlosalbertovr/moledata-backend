@@ -12,6 +12,8 @@ export const getCognitoUserPoolId = async () => {
 
 	const secret = await getSecretStringAsJson(apiConfig.secret_id);
 
+	console.log("secret", secret);
+
 	return secret.COGNITO_USER_POOL_ID;
 };
 
