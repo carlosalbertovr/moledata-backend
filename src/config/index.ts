@@ -5,6 +5,8 @@ export interface ApiConfiguration {
 	port: number;
 	secret_id: string;
 	aws_region: string;
+	aws_access_key: string;
+	aws_secret_access_key: string;
 	cognito_client_id: string;
 	cognito_signing_key_url: string;
 	cognito_token_issuer: string;

@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
@@ -12,6 +13,9 @@ dotenv.config();
 const app: Application = express();
 
 const port = apiConfig.port;
+
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
 
 app.get("/openapi", (_req, res) => {
 	res.send(openapi);
@@ -42,7 +46,7 @@ RegisterRoutes(app);
 
 // Healthcheck
 app.get("/", (_req: Request, res: Response) => {
-	console.log(`Checked at ${new Date()}`)
+	console.log(`Checked at ${new Date()}`);
 	res.json({ msg: "Welcome to Mole Data API 😎" });
 });
 
