@@ -1,6 +1,8 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
+import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 
 import { apiConfig } from "./config";
@@ -13,6 +15,17 @@ dotenv.config();
 const app: Application = express();
 
 const port = apiConfig.port;
+
+app.disable("x-powered-by");
+app.use(helmet());
+app.use(
+	cors({
+		origin: [
+			/^https?:\/\/localhost:[\d]*/,
+			/^https:\/\/api(.dev)?\.moledata\.net/,
+		],
+	}),
+);
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
