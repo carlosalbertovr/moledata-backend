@@ -32,8 +32,6 @@ export const adminCreateUser = async (params: AdminCreateUserParams) => {
 	try {
 		const userPoolId = await getCognitoUserPoolId();
 
-		console.log("userPoolId", userPoolId);
-
 		const createUserCommand = new AdminCreateUserCommand({
 			UserPoolId: userPoolId,
 			Username: params.email,

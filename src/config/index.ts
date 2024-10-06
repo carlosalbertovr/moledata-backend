@@ -1,5 +1,10 @@
+import dotenv from "dotenv";
+
 import { devConfiguration } from "./dev";
 import { localConfiguration } from "./local";
+
+dotenv.config();
+
 export interface ApiConfiguration {
 	envName: "local" | "dev";
 	port: number;

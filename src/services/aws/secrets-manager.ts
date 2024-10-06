@@ -18,7 +18,6 @@ export const getSecretStringAsString = async (secretId: string) => {
 };
 
 export const getSecretStringAsJson = async (secretId: string) => {
-	console.log("secretId", secretId);
 	const secretAsStr = await getSecretStringAsString(secretId);
 	return JSON.parse(secretAsStr || "{}");
 };
