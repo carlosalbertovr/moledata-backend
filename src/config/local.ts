@@ -10,7 +10,7 @@ export const localConfiguration: ApiConfiguration = {
 	secret_id: "moledata-dev-secrets",
 	aws_access_key: process.env.AWS_APP_ACCESS_KEY ? process.env.AWS_APP_ACCESS_KEY : "s3rv3r",
 	aws_secret_access_key: process.env.AWS_APP_SECRET_ACCESS_KEY ? process.env.AWS_APP_SECRET_ACCESS_KEY : "s3rv3r",
-	cognito_client_id: "2219857i294ppeqmgsu2nk2clf",
-	cognito_signing_key_url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_JhMGr5onT/.well-known/jwks.json",
-	cognito_token_issuer: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_JhMGr5onT",
+	cognito_client_id: "7a6anncbu42ssfnn5t7fc3ef63",
+	cognito_signing_key_url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_wCAGopa2d/.well-known/jwks.json",
+	cognito_token_issuer: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_wCAGopa2d",
 };

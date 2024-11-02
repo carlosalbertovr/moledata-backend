@@ -7,6 +7,13 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"_36_Enums.UserType": {
+				"type": "string",
+				"enum": [
+					"individual",
+					"team"
+				]
+			},
 			"Pick_UserRecord.Exclude_keyofUserRecord.is_deleted__": {
 				"properties": {
 					"id": {
@@ -14,6 +21,9 @@
 					},
 					"email": {
 						"type": "string"
+					},
+					"user_type": {
+						"$ref": "#/components/schemas/_36_Enums.UserType"
 					},
 					"fullname": {
 						"type": "string"
@@ -25,6 +35,7 @@
 				"required": [
 					"id",
 					"email",
+					"user_type",
 					"fullname",
 					"country"
 				],
@@ -38,10 +49,13 @@
 			"UserOutput": {
 				"$ref": "#/components/schemas/Omit_UserRecord.is_deleted_"
 			},
-			"Pick_UserRecord.email-or-fullname-or-country_": {
+			"Pick_UserRecord.email-or-fullname-or-country-or-user_type_": {
 				"properties": {
 					"email": {
 						"type": "string"
+					},
+					"user_type": {
+						"$ref": "#/components/schemas/_36_Enums.UserType"
 					},
 					"fullname": {
 						"type": "string"
@@ -52,6 +66,7 @@
 				},
 				"required": [
 					"email",
+					"user_type",
 					"fullname",
 					"country"
 				],
@@ -61,7 +76,7 @@
 			"UserCreateInput": {
 				"allOf": [
 					{
-						"$ref": "#/components/schemas/Pick_UserRecord.email-or-fullname-or-country_"
+						"$ref": "#/components/schemas/Pick_UserRecord.email-or-fullname-or-country-or-user_type_"
 					},
 					{
 						"properties": {
@@ -96,7 +111,7 @@
 				"operationId": "GetUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "A promise that resolves to the user data if found, or null if not found.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -111,14 +126,14 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"description": "Retrieves a user by their ID.",
 				"tags": [
 					"User service"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "- The ID of the user to retrieve.",
 						"in": "path",
 						"name": "userId",
 						"required": true,
@@ -134,7 +149,7 @@
 				"operationId": "CreateUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "A promise that resolves to the created user's output data.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -144,21 +159,56 @@
 						}
 					}
 				},
+				"description": "Creates a new user.",
 				"tags": [
 					"User service"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The input data required to create a new user.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreateInput"
+								"$ref": "#/components/schemas/UserCreateInput",
+								"description": "- The input data required to create a new user."
 							}
 						}
 					}
 				}
+			}
+		},
+		"/users/profile/my-profile": {
+			"get": {
+				"operationId": "GetCurrentProfile",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to the user's profile information or null if not found.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/UserOutput"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the current user's profile based on the email provided in the request.",
+				"tags": [
+					"User service"
+				],
+				"security": [
+					{
+						"cognito": []
+					}
+				],
+				"parameters": []
 			}
 		}
 	},

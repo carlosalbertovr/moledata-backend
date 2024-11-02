@@ -8,12 +8,21 @@ const select: Prisma.UserSelect = {
 	email: true,
 	fullname: true,
 	country: true,
+	user_type: true,
 };
 
 export const getUserById = async (userId: string) =>
 	await prisma.user.findFirst({
 		where: {
 			id: userId,
+		},
+		select,
+	});
+
+export const getUserByEmail = async (email: string) =>
+	await prisma.user.findFirst({
+		where: {
+			email: email,
 		},
 		select,
 	});

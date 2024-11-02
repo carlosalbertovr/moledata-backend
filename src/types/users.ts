@@ -7,7 +7,7 @@ type UserRecord = User;
 
 type UserOutput = Omit<UserRecord, "is_deleted">;
 
-type UserCreateInput = Pick<UserRecord, "email" | "fullname" | "country"> & { password: string };
+type UserCreateInput = Pick<UserRecord, "email" | "fullname" | "country" | "user_type"> & { password: string };
 
 type UserUpdateInput = Partial<Omit<UserRecord, "id">>;
 

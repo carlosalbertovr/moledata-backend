@@ -8,10 +8,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserType {
+  individual
+  team
+}
+
 model User {
-  id         String  @id @default(uuid())
-  email      String  @unique
+  id         String   @id @default(uuid())
+  email      String   @unique
+  user_type  UserType @default(individual)
   fullname   String
   country    String
-  is_deleted Boolean @default(false)
+  is_deleted Boolean  @default(false)
 }

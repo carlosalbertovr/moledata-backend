@@ -11,6 +11,15 @@ export const getUserByIdValidations = async (userId: string): Promise<void> => {
 	});
 };
 
+export const getCurrentProfileValidations = async (email: string): Promise<void> => {
+	await handleValidate(async (errors) => {
+		const userExists = await checkIfEmailIsUsed(email);
+		if (!userExists) {
+			errors.user = { message: "USER_DOES_NOT_EXIST", status: 404 };
+		}
+	});
+};
+
 export const createUserValidations = async (payload: UserCreateInput): Promise<void> => {
 	await handleValidate(async (errors) => {
 		// Check if the email is already used

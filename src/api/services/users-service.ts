@@ -1,6 +1,6 @@
 import { adminCreateUser } from "../../services/aws/cognito";
 import { UserCreateInput, UserOutput } from "../../types/users";
-import { getUserById, createUser } from "../models/users-model";
+import { getUserById, createUser, getUserByEmail } from "../models/users-model";
 
 export const getUserByIdService = async (userId: string): Promise<UserOutput | null> => {
 	const user = await getUserById(userId);
@@ -17,4 +17,8 @@ export const createUserService = async (payload: UserCreateInput): Promise<UserO
 	await adminCreateUser({ email: payload.email, fullname: payload.fullname, password: password });
 	const createdUser = await createUser(createInput);
 	return createdUser;
+};
+
+export const getCurrentVolunteer = async (email: string): Promise<UserOutput | null> => {
+	return await getUserByEmail(email);
 };

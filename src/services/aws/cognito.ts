@@ -24,38 +24,41 @@ const cognitoClient = new CognitoIdentityProviderClient({
 });
 
 interface AdminCreateUserParams {
-	email: string;
-	fullname: string;
-	password?: string;
+    email: string;
+    fullname: string;
+    password?: string;
 }
+
 export const adminCreateUser = async (params: AdminCreateUserParams) => {
-	try {
-		const userPoolId = await getCognitoUserPoolId();
+    try {
+        const userPoolId = await getCognitoUserPoolId();
 
-		const createUserCommand = new AdminCreateUserCommand({
-			UserPoolId: userPoolId,
-			Username: params.email,
-			UserAttributes: [
-				{ Name: "email", Value: params.email },
-				{ Name: "name", Value: params.fullname },
-				{ Name: "email_verified", Value: "true" },
-			],
-		});
+        const createUserCommand = new AdminCreateUserCommand({
+            UserPoolId: userPoolId,
+            Username: params.email,
+            UserAttributes: [
+                { Name: "email", Value: params.email },
+                { Name: "name", Value: params.fullname },
+                { Name: "email_verified", Value: "true" },
+            ],
+        });
 
-		await cognitoClient.send(createUserCommand);
+        await cognitoClient.send(createUserCommand);
 
-		const setPasswordCommand = new AdminSetUserPasswordCommand({
-			UserPoolId: userPoolId,
-			Username: params.email,
-			Password: params.password,
-			Permanent: true,
-		});
+        // Set password if provided
+        if (params.password) {
+            const setPasswordCommand = new AdminSetUserPasswordCommand({
+                UserPoolId: userPoolId,
+                Username: params.email,
+                Password: params.password,
+                Permanent: true,
+            });
+            await cognitoClient.send(setPasswordCommand);
+        }
 
-		await cognitoClient.send(setPasswordCommand);
-
-		console.log(`✅ User with email ${params.email} created successfully in Cognito.`);
-	} catch (error) {
-		console.error("☁️❌ Error creating user in Cognito:", error);
-		throw new Error(`☁️❌ Failed to create user: ${error}`);
-	}
+        console.log(`✅ User with email ${params.email} created successfully in Cognito.`);
+    } catch (error) {
+        console.error("☁️❌ Error creating user in Cognito:", error);
+        throw new Error(`☁️❌ Failed to create user: ${error}`);
+    }
 };

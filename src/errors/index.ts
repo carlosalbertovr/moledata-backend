@@ -19,7 +19,6 @@ export class DetailedValidateError extends ValidateError {
 
 // Explicitly type the error handler as ErrorRequestHandler and make it async
 export const errorHandler: ErrorRequestHandler = async (err, req, res, next): Promise<void> => {
-	console.error(`❌ Caught Error for ${req.path}:`, err);
 	if (err instanceof DetailedValidateError) {
 		console.error(`❌ Caught Validation Error for ${req.path}:`, err.fields);
 
